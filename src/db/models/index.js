@@ -1,4 +1,4 @@
-// 'use strict';
+'use strict';
 
 // const fs = require('fs');
 // const path = require('path');
@@ -47,6 +47,7 @@ const env = process.env.NODE_ENV || "development";
 // const config = require('./config')[env];
 const config = require("../config/config")[env];
 
+/** @type {import('sequelize').Sequelize} */
 const sequelize = new Sequelize(
 	config.database,
 	config.username,

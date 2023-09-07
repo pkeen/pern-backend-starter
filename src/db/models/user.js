@@ -1,9 +1,12 @@
 module.exports = (sequelize, DataTypes) => {
 	const User = sequelize.define("User", {
-		name: {
+		firstName: {
 			type: DataTypes.STRING,
 			allowNull: false,
-			unique: true,
+		},
+		lastName: {
+			type: DataTypes.STRING,
+			allowNull: true,
 		},
 		email: {
 			type: DataTypes.STRING,
@@ -20,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
 		User.hasMany(models.Course, {
 			foreignKey: "userId",
 			as: "courses",
+			onDelete: 'CASCADE'
 		});
 	};
 

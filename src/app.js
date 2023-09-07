@@ -4,25 +4,33 @@ const path = require("path");
 // const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const { sequelize } = require("./db/models/index");
+const { devSyncAndSeed } = require("./db/utilities/devSyncAndSeed");
 // const synchronize = require('./models/modelIndex');
+const {up, down} = require('./db/seeders/simple-db-seed');
 
 // Routes
 const indexRouter = require("./api/routes/index");
 const usersRouter = require("./api/routes/users");
 // const authRouter = require('./routes/auth');
 
-sequelize
-	.authenticate()
-	.then(() => {
-		console.log("Database connection established successfully.");
-		sequelize.sync({ force: true }).catch((err) => {
-			console.error("Failed to start the app:", err);
-		});
-	})
-	.catch((err) => {
-		console.error("Unable to connect to the database:", err);
-	});
+devSyncAndSeed(sequelize, up);
 
+// sequelize
+// 	.authenticate()
+// 	.then(() => {
+// 		console.log("Database connection established successfully.");
+// 		sequelize.sync({ force: true })
+//       .catch((err) => {
+// 			console.error("Failed to start the app:", err);
+// 		});
+// 	})
+// 	.catch((err) => {
+// 		console.error("Unable to connect to the database:", err);
+// 	});
+
+// (async () => {
+//   await up();
+// })()
 
 // synchronize();
 
