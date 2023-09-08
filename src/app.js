@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 // const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const cors = require('cors');
 const { sequelize } = require("./db/models/index");
 const { devSyncAndSeed } = require("./db/utilities/devSyncAndSeed");
 // const synchronize = require('./models/modelIndex');
@@ -45,15 +46,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+// configure CORS
+app.use(
+	cors({
+		origin: "http://localhost:5173", // your frontend server's address
+		// origin: false // should disable
+	})
+);
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/api/users", usersRouter);
 // app.use('/', authRouter);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-	next(createError(404));
-});
+// app.use(function (req, res, next) {
+// 	next(createError(404));
+// });
 
 // // error handler
 // app.use(function (err, req, res, next) {

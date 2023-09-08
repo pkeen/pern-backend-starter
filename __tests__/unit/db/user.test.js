@@ -20,8 +20,7 @@ describe("User model", () => {
 	test("should create a user and retrieve it with matching fields", async () => {
 		// Step 1: Create a new user
 		const userData = {
-			firstName: "Alice",
-			lastName: "Gun",
+			name: "Alice",
 			email: "alice@example.com",
 			password: "12345",
 		};

@@ -11,8 +11,7 @@ module.exports = {
 				"Users",
 				[
 					{
-						firstName: faker.person.firstName(),
-						lastName: faker.person.lastName(),
+						name: faker.person.fullName(),
 						email: faker.internet.email(),
 						password: faker.internet.password(), // Added password field here
 						createdAt: new Date(),
