@@ -43,9 +43,11 @@
 // module.exports = db;
 
 const { Sequelize, DataTypes } = require("sequelize");
-const env = process.env.NODE_ENV || "development";
+const env = process.env.NODE_ENV || "dev";
 // const config = require('./config')[env];
 const config = require("../config/config")[env];
+
+const logging = process.env.NODE_ENV === "dev" ? (...msg) => console.log(msg) : false
 
 /** @type {import('sequelize').Sequelize} */
 const sequelize = new Sequelize(
@@ -55,6 +57,7 @@ const sequelize = new Sequelize(
 	{
 		host: config.host,
 		dialect: config.dialect,
+		logging: logging
 	}
 );
 

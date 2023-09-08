@@ -1,17 +1,15 @@
-var express = require('express');
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
+const usersCtrl = require("../controllers/users");
 
 // these routes begin with /api/users
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.get("/", function (req, res, next) {
+	res.send("respond with a resource");
 });
 
-router.post('/', (req, res) => {
-  // res.send('hello from server!')
-  const name = req.body.name
-  res.json({name})
-})
+// POST /api/users -- Create a user
+router.post('/', usersCtrl.create);
 
 module.exports = router;
