@@ -10,7 +10,6 @@ module.exports = (sequelize, DataTypes) => {
 	Course.associate = (models) => {
 		Course.belongsTo(models.User, {
 			foreignKey: "userId",
-			as: "author",
 			// onUpdate: "CASCADE",
 			onDelete: "CASCADE",
 		});
