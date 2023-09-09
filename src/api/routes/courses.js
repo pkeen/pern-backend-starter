@@ -8,6 +8,6 @@ const coursesCtrl = require("../controllers/courses");
 router.get("/", coursesCtrl.index);
 
 // POST /api/courses
-
+router.post("/", coursesCtrl.create);
 
 module.exports = router;

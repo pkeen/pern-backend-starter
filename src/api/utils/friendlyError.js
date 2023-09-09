@@ -4,20 +4,24 @@
 class FriendlyError extends Error {
 	/**
 	 * @param {string} message - The error message.
+	 * @param {number} status - The HTTP status code.
 	 * @param {string} errCode - The error code.
-	 * @param {number} statusCode - The HTTP status code.
 	 */
-	constructor(message, errCode, statusCode) {
+	constructor(
+		message = "We're afraid an unkown error has occurred",
+		status = 500,
+		errCode = "unknown_error"
+	) {
 		super(message);
+		this.status = status;
 		this.errCode = errCode;
-		this.statusCode = statusCode;
 	}
 
 	/**
 	 * Gets the error object with structured format.
 	 * @returns {object} The error object.
 	 */
-	getErrorObj() {
+	formatError() {
 		return {
 			error: {
 				code: this.errCode,
@@ -27,4 +31,4 @@ class FriendlyError extends Error {
 	}
 }
 
-module.exports = FriendlyError
+module.exports = FriendlyError;

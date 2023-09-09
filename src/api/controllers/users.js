@@ -34,8 +34,8 @@ const login = async (req, res) => {
 		if (!user) {
 			throw new FriendlyError(
 				"No user found with the specified email.",
-				"UserNotFound",
-				404
+				404,
+				"UserNotFound"
 			);
 		}
 
@@ -43,8 +43,8 @@ const login = async (req, res) => {
 		if (!match) {
 			throw new FriendlyError(
 				"The password you enetered did not match our records",
-				"InvalidPassword",
-				401
+				401,
+				"InvalidPassword"
 			);
 		}
 
@@ -53,7 +53,7 @@ const login = async (req, res) => {
 		res.status(202).json({ token });
 	} catch (err) {
 		if (err instanceof FriendlyError) {
-			res.status(err.statusCode).json(err.getErrorObj());
+			res.status(err.statusCode).json(formatError());
 		} else {
 			// This is where you would handle other types of errors - those not
 			// created by you and hence not having getErrorObj method

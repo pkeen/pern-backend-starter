@@ -4,8 +4,10 @@ const path = require("path");
 // const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
+const checkJWT = require("./api/utils/checkJWT");
 const { sequelize } = require("./db/models/index");
-const { devSyncAndSeed } = require("./db/utilities/devSyncAndSeed");
+// const { devSyncAndSeed } = require("./db/utilities/syncAndSeed");
+const devSyncMode = require("./db/utilities/devSyncMode");
 // const synchronize = require('./models/modelIndex');
 const { up, down } = require("./db/seeders/simple-db-seed");
 
@@ -14,7 +16,8 @@ const indexRouter = require("./api/routes/index");
 const usersRouter = require("./api/routes/users");
 const coursesRouter = require("./api/routes/courses");
 
-devSyncAndSeed(sequelize, up);
+// devSyncAndSeed(sequelize, up);
+devSyncMode(sequelize, up);
 
 // sequelize
 // 	.authenticate()
@@ -53,6 +56,9 @@ app.use(
 		// origin: false // should disable
 	})
 );
+// Middleware to check and verify a JWT
+// and assign the user object from the JWT to req.user
+app.use(checkJWT);
 
 app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
