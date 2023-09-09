@@ -10,6 +10,9 @@ router.get("/", function (req, res, next) {
 });
 
 // POST /api/users -- Create a user
-router.post('/', usersCtrl.create);
+router.post("/", usersCtrl.create);
+
+// POST /api/users/login -- Login
+router.post("/login", usersCtrl.login);
 
 module.exports = router;
