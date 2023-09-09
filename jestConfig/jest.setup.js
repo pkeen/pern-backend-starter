@@ -1,25 +1,19 @@
 const { sequelize } = require("../src/db/models/index");
-const { testConnection } = require("../src/db/utilities/devSyncAndSeed")
+const { testConnection , forceSynchronize } = require("../src/db/utilities/syncAndSeed");
 
-
-const synchronize = async (sequelize) => {
-	try {
-		await sequelize.sync({force: true});
-		console.log("Tables dropped and recreated")
-	} catch {
-		console.error("Unable to sync databse", error)
-	}
-}
-
-const seedDatabse = async (sequelize) => {
-	
-}
+// const synchronize = async (sequelize) => {
+// 	try {
+// 		await sequelize.sync({ force: true });
+// 		console.log("Tables dropped and recreated");
+// 	} catch {
+// 		console.error("Unable to sync databse", error);
+// 	}
+// };
 
 
 module.exports = async (globalConfig, projectConfig) => {
-
 	// test connect to db
-	testConnection(sequelize)
+	testConnection(sequelize);
 	// try {
 	// 	await sequelize.authenticate();
 	// 	console.log("Database connection has been established successfully.");
@@ -28,8 +22,6 @@ module.exports = async (globalConfig, projectConfig) => {
 	// }
 
 	// force sync the data
-	await synchronize(sequelize);
+	await forceSynchronize(sequelize);
 	// seed data
-
-
-}
+};

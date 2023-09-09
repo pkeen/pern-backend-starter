@@ -1,4 +1,41 @@
-'use strict';
+"use strict";
+
+const { Sequelize, DataTypes } = require("sequelize");
+const env = process.env.NODE_ENV || "dev";
+// const config = require('./config')[env];
+const config = require("../config/config")[env];
+
+const logging =
+	process.env.NODE_ENV === "dev"
+		? /*(...msg) => console.log(msg) */ console.log
+		: false;
+
+/** @type {import('sequelize').Sequelize} */
+const sequelize = new Sequelize(
+	config.database,
+	config.username,
+	config.password,
+	{
+		host: config.host,
+		dialect: config.dialect,
+		logging: logging,
+	}
+);
+
+const models = {
+	User: require("./user")(sequelize, Sequelize.DataTypes),
+	Course: require("./course")(sequelize, Sequelize.DataTypes),
+	// Course: require("./models/Course")(sequelize, Sequelize.DataTypes),
+	// add more models here
+};
+
+Object.keys(models).forEach((modelName) => {
+	if ("associate" in models[modelName]) {
+		models[modelName].associate(models);
+	}
+});
+
+module.exports = { sequelize, ...models };
 
 // const fs = require('fs');
 // const path = require('path');
@@ -39,56 +76,5 @@
 
 // db.sequelize = sequelize;
 // db.Sequelize = Sequelize;
-
-// module.exports = db;
-
-const { Sequelize, DataTypes } = require("sequelize");
-const env = process.env.NODE_ENV || "dev";
-// const config = require('./config')[env];
-const config = require("../config/config")[env];
-
-const logging = process.env.NODE_ENV === "dev" ? (...msg) => console.log(msg) : false
-
-/** @type {import('sequelize').Sequelize} */
-const sequelize = new Sequelize(
-	config.database,
-	config.username,
-	config.password,
-	{
-		host: config.host,
-		dialect: config.dialect,
-		logging: logging
-	}
-);
-
-const models = {
-	User: require("./user")(sequelize, Sequelize.DataTypes),
-  Course: require('./course')(sequelize, Sequelize.DataTypes)
-	// Course: require("./models/Course")(sequelize, Sequelize.DataTypes),
-	// add more models here
-};
-
-Object.keys(models).forEach((modelName) => {
-	if ("associate" in models[modelName]) {
-		models[modelName].associate(models);
-	}
-});
-
-module.exports = { sequelize, ...models };
-
-// sequelize.authenticate()
-//   .then(() => {
-//     console.log('Database connection established successfully.');
-//   })
-//   .catch(err => {
-//     console.error('Unable to connect to the database:', err);
-//   });
-
-// const db = {}
-// db.sequelize = sequelize;
-// db.Sequelize = Sequelize;
-
-// //connecting to models
-// db.users = require('./user') (sequelize, DataTypes)
 
 // module.exports = db;
