@@ -12,7 +12,7 @@ router.get("/", coursesCtrl.index);
 router.post("/", coursesCtrl.create);
 
 // DELETE /api/courses/:id
-router.delete("/:id", coursesCtrl.destroy);
+router.delete("/:id", ensureLoggedIn, coursesCtrl.destroy);
 
 // PUT /api/courses/:id
 router.put('/:id', coursesCtrl.update);

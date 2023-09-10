@@ -52,8 +52,7 @@ const login = async (req, res) => {
 
 			res.status(err.status).json(err.formatError());
 		} else {
-			// This is where you would handle other types of errors - those not
-			// created by you and hence not having getErrorObj method
+			// This is where you would handle other types of errors - those not created by you
 			console.error(err); // log the error for debugging purposes
 			res.status(500).json({
 				error: {

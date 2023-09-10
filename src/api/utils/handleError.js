@@ -26,6 +26,9 @@ const formatValidationError = (err) => {
 const handleError = (err) => {
 	// return FriendlyError for known occurances
 	switch (err.name) {
+		case "FriendlyError":
+			return err;
+
 		case "SequelizeForeignKeyConstraintError":
 			return new FriendlyError(
 				"Related table entry not found",

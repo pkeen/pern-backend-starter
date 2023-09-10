@@ -1,5 +1,7 @@
 const { User, Course } = require("../../db/models/index");
 const handleError = require("../utils/handleError");
+const FriendlyError = require("../utils/friendlyError");
+const { getObjectOr404, userIsOwnerOr403 } = require('../utils/request-database-utilities');
 const validateAndFormatParams = require("../utils/validateAndFormatParams");
 
 const index = async (req, res) => {
@@ -12,7 +14,7 @@ const index = async (req, res) => {
 			where: query,
 			include: { model: User, attributes: ["name"] },
 		});
-		res.json(courses);
+		res.status(200).json(courses);
 	} catch (err) {
 		res.json(err);
 	}
@@ -33,48 +35,60 @@ const create = async (req, res) => {
 
 const destroy = async (req, res) => {
 	try {
+		// TODO add protection to route, ensure user has token and user.id matches the course.userId
 		const id = req.params.id;
 
-		const result = await Course.destroy({
-			where: { id: id },
-		});
+		const course = await getObjectOr404(id, Course); // handles getting course and errors that could occur
 
-		console.log(result);
-		if (result === 0) {
-			res.status(404).send("Course not found");
-		} else {
-			res.status(200).send("Course deleted successfully");
-		}
+		// check the course belongs to user
+		userIsOwnerOr403(req.user, course);
+
+		await course.destroy();
+
+		res.status(200).json({ message: "Course deleted successfully" });
+
 	} catch (err) {
-		res.status(500).send(error.message);
+		if (err instanceof FriendlyError) {
+			res.status(err.status).json(err.formatError());
+		} else {
+			console.error(err); // log the error for debugging purposes
+			res.status(500).json({
+				error: {
+					code: "unknown_error",
+					message: "An unexpected error occurred",
+				},
+			});
+		}
 	}
 };
 
 const update = async (req, res) => {
 	try {
 		const id = parseInt(req.params.id);
-		console.log("id:", id);
 
-		console.log(req.body)
+		const course = await getObjectOr404(id, Course); // handles getting course and errors that could occur
 
-		const [numberOfAffectedRows, affectedRows] = await Course.update(
-			req.body,
-			{
-				where: { id: id },
-				returning: true, // needed for affectedRows to be populated
-			}
-		);
+		// check the course belongs to user
+		userIsOwnerOr403(req.user, course);
 
-		console.log("numberOfAffectedRows", numberOfAffectedRows);
-		console.log("affectedRows", affectedRows);
+		// We could have validations or middleware for extra security
 
-		if (numberOfAffectedRows === 0) {
-			res.status(404).send("Course not found");
-		} else {
-			res.status(200).json(affectedRows[0]);
-		}
+		await course.update(req.body);
+
+		res.status(200).json({message: "Course updated successfully", course})
+
 	} catch (error) {
-		res.status(500).send(error.message);
+		if (err instanceof FriendlyError) {
+			res.status(err.status).json(err.formatError());
+		} else {
+			console.error(err); // log the error for debugging purposes
+			res.status(500).json({
+				error: {
+					code: "unknown_error",
+					message: "An unexpected error occurred",
+				},
+			});
+		}
 	}
 };
 
