@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
 const { User } = require("../../db/models/index");
-const { handleSequelizeError } = require("../utils/handleSequelizeError");
 const handleError = require('../utils/handleError');
 const FriendlyError = require("../utils/friendlyError");
 const bcrypt = require("bcrypt");

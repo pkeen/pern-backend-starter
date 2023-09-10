@@ -1,8 +1,8 @@
 const { User, Course } = require("../../db/models/index");
 const handleError = require("../utils/handleError");
 const FriendlyError = require("../utils/friendlyError");
-const { getObjectOr404, userIsOwnerOr403 } = require('../utils/request-database-utilities');
-const validateAndFormatParams = require("../utils/validateAndFormatParams");
+const { getObjectOr404, userIsOwnerOr403 , validateAndFormatParams} = require('../utils/request-database-utilities');
+// const validateAndFormatParams = require("../utils/validateAndFormatParams");
 
 const index = async (req, res) => {
 	// Using the validateAndFormatParams to change fks to ints from strings
