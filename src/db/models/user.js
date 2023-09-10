@@ -49,12 +49,11 @@ module.exports = (sequelize, DataTypes) => {
 					msg: "Password cannot be empty",
 				},
 			},
-			// set(value) {
-			// 	let hashedPassword;
-			// 	bcrypt.hash(value.trim(), SALT_ROUNDS).then(hashed => hashedPassword = hashed);
-			// 	this.setDataValue("password", hashedPassword)
-			// },
 		},
+		// zenPoints: {
+		// 	type: Data
+		// }
+		// TODO: define points Zen and Karma
 	});
 
 	User.prototype.toJSON = function () {
