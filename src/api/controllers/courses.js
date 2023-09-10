@@ -1,8 +1,13 @@
 const { User, Course } = require("../../db/models/index");
-const handleError = require('../utils/handleError');
+const handleError = require("../utils/handleError");
+const validateAndFormatParams = require('../utils/validateAndFormatParams');
 
 const index = async (req, res) => {
-	const query = req.query
+
+	// Using the validateAndFormatParams to change fks to ints from strings
+	const params = req.query;
+	const query = validateAndFormatParams(Course, params);
+	// console.log(query);
 	try {
 		const courses = await Course.findAll({
 			where: query,
@@ -15,22 +20,19 @@ const index = async (req, res) => {
 };
 
 const create = async (req, res) => {
-	// console.log(req.user);
-	// console.log(req.body);
-	// console.log(data);
-    try {
-		const data = {...req.body, userId: parseInt(req.user.id)}
+	try {
+		const data = { ...req.body, userId: parseInt(req.user.id) };
 		await Course.create(data);
-		res.status(201).json()
+		res.status(201).json("Course created");
 	} catch (err) {
-		const error = handleError(err)
-		console.log(error)
+		console.log("sequelize error: ", err);
+		const error = handleError(err);
+		console.log(error);
 		res.status(error.status).json(error.formatError());
 	}
-	
-}
+};
 
 module.exports = {
 	index,
-    create,
+	create,
 };

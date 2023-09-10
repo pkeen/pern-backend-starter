@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { User } = require("../../db/models/index");
 const { handleSequelizeError } = require("../utils/handleSequelizeError");
+const handleError = require('../utils/handleError');
 const FriendlyError = require("../utils/friendlyError");
 const bcrypt = require("bcrypt");
 
@@ -16,14 +17,9 @@ const create = async (req, res) => {
 
 		res.status(201).json({ token });
 	} catch (err) {
-		console.log(err);
-		const { statusCode, errors } = handleSequelizeError(err);
-		res.status(statusCode).json({ errors });
-		// if (err.errors[0].type === "unique violation") {
-		// 	console.log("email taken");
-		// }
-		// err.message = "really bad request there";
-		// res.status(400).json(err);
+		const error = handleError(err);
+		console.log(error);
+		res.status(error.status).json(error.formatError());
 	}
 };
 
@@ -53,7 +49,8 @@ const login = async (req, res) => {
 		res.status(202).json({ token });
 	} catch (err) {
 		if (err instanceof FriendlyError) {
-			res.status(err.statusCode).json(formatError());
+
+			res.status(err.status).json(err.formatError());
 		} else {
 			// This is where you would handle other types of errors - those not
 			// created by you and hence not having getErrorObj method

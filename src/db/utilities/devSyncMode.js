@@ -9,9 +9,10 @@ const {
 const devSyncMode = async (sequelize, up) => {
 	await testConnection(sequelize);
 	// await alterSynchronize(sequelize);
-	await forceSynchronize(sequelize);
+	await alterSynchronize(sequelize);
     const {count, row} = await User.findAndCountAll()
-	if (count <= 10) {
+	console.log("count", count)
+	if (count < 10) {
 		await seedDatabse(sequelize, up);
 	}
 };
