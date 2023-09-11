@@ -5,12 +5,32 @@ module.exports = (sequelize, DataTypes) => {
 			allowNull: false,
 			// unique: true,
 		},
+		description: {
+			type: DataTypes.TEXT,
+		},
+		isPublished: {
+			type: DataTypes.BOOLEAN,
+		},
+		isCurated: {
+			type: DataTypes.BOOLEAN,
+		},
+		price: {
+			type: DataTypes.DECIMAL,
+			validate: {
+				min: 0,
+			},
+		},
 	});
 
 	Course.associate = (models) => {
 		Course.belongsTo(models.User, {
 			foreignKey: "userId",
-			// onUpdate: "CASCADE",
+			onDelete: "CASCADE",
+			allowNull: false,
+		});
+
+		Course.hasMany(models.CourseSlot, {
+			foreignKey: "courseId",
 			onDelete: "CASCADE",
 		});
 	};

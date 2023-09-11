@@ -1,6 +1,5 @@
 const { faker } = require("@faker-js/faker");
 const { sequelize } = require("../models/index");
-// const { Sequelize } = require("sequelize");
 
 module.exports = {
 	up: async () => {
@@ -25,7 +24,7 @@ module.exports = {
 
 	down: async () => {
 		const queryInterface = sequelize.getQueryInterface();
-		// Remove all courses and users
+		// Remove all users
 		await queryInterface.bulkDelete("Users", null, {});
 	},
 };

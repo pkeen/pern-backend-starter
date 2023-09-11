@@ -67,7 +67,12 @@ module.exports = (sequelize, DataTypes) => {
 	User.associate = (models) => {
 		User.hasMany(models.Course, {
 			foreignKey: "userId",
-			as: "courses",
+			// as: "courses",
+			onDelete: "CASCADE",
+		});
+
+		User.hasMany(models.Lesson, {
+			foreignKey: "userId",
 			onDelete: "CASCADE",
 		});
 	};

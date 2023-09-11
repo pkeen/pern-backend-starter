@@ -17,7 +17,7 @@ const usersRouter = require("./api/routes/users");
 const coursesRouter = require("./api/routes/courses");
 
 // devSyncAndSeed(sequelize, up);
-devSyncMode(sequelize, up);
+devSyncMode();
 
 // sequelize
 // 	.authenticate()

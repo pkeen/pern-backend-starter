@@ -27,6 +27,11 @@ const seedDatabse = async (sequelize, up) => {
 	}
 };
 
+const seedUsers = async (sequelize) => {
+	
+}
+
+
 const testConnection = async (sequelize) => {
 	try {
 		await sequelize.authenticate();
