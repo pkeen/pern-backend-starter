@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		price: {
 			type: DataTypes.DECIMAL,
+			defaultValue: 0,
 			validate: {
 				min: 0,
 			},

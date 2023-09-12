@@ -10,8 +10,8 @@ module.exports = {
 		host: process.env.DB_HOST,
 		dialect: "postgres",
 		// migrations storage
-		migrationStoragePath: "src/db/migrations",
-		seederStoragePath: "src/db/seeders",
+		// migrationStoragePath: "src/db/migrations",
+		// seederStoragePath: "src/db/seeders",
 	},
 	test: {
 		username: process.env.DB_USERNAME,
@@ -20,8 +20,8 @@ module.exports = {
 		host: process.env.DB_HOST,
 		dialect: "postgres",
 		// migrations storage
-		migrationStoragePath: "src/db/migrations",
-		seederStoragePath: "src/db/seeders",
+		// migrationStoragePath: "src/db/migrations",
+		// seederStoragePath: "src/db/seeders",
 	},
 	production: {
 		username: process.env.DB_USERNAME,
@@ -30,15 +30,15 @@ module.exports = {
 		host: process.env.DB_HOST,
 		dialect: "postgres",
 		// dialect options - suggested by ChatGPT
-		dialectOptions: {
-			ssl: {
-				require: true,
-				rejectUnauthorized: false,
-			},
-		},
+		// dialectOptions: {
+		// 	ssl: {
+		// 		require: true,
+		// 		rejectUnauthorized: false,
+		// 	},
+		// },
 		// migrations storage
-		migrationStoragePath: "src/db/migrations",
-		seederStoragePath: "src/db/seeders",
+		// migrationStoragePath: "src/db/migrations",
+		// seederStoragePath: "src/db/seeders",
 	},
 
 	// other configurations
