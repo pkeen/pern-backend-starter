@@ -3,7 +3,7 @@
 	"version": "0.0.0",
 	"private": true,
 	"scripts": {
-		"start": "node ./src//bin/www",
+		"start": "node ./src/bin/www",
 		"dev": "NODE_ENV=dev nodemon ./src/bin/www",
 		"test": "NODE_ENV=test jest",
 		"migrate": "NODE_ENV=production npx sequelize-cli db:migrate",
