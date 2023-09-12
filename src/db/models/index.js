@@ -1,26 +1,28 @@
 "use strict";
 
 const { Sequelize, DataTypes } = require("sequelize");
-const env = process.env.NODE_ENV || "dev";
-// const config = require('./config')[env];
-const config = require("../config/config")[env];
+const sequelizeConnection = require("../config/connection")
+// const env = process.env.NODE_ENV || "dev";
+// const config = require("../config/config")[env];
 
-const logging =
-	process.env.NODE_ENV === "text"
-		? false
-		: /*(...msg) => console.log(msg) */ console.log;
+// const logging =
+// 	process.env.NODE_ENV === "text"
+// 		? false
+// 		: /*(...msg) => console.log(msg) */ console.log;
 
-/** @type {import('sequelize').Sequelize} */
-const sequelize = new Sequelize(
-	config.database,
-	config.username,
-	config.password,
-	{
-		host: config.host,
-		dialect: config.dialect,
-		logging: logging,
-	}
-);
+// /** @type {import('sequelize').Sequelize} */
+// const sequelize = new Sequelize(
+// 	config.database,
+// 	config.username,
+// 	config.password,
+// 	{
+// 		host: config.host,
+// 		dialect: config.dialect,
+// 		logging: logging,
+// 	}
+// );
+
+const sequelize = sequelizeConnection();
 
 // register models here
 const models = {
