@@ -6,9 +6,8 @@ const logger = require("morgan");
 const cors = require("cors");
 const checkJWT = require("./api/middleware/checkJWT");
 const { sequelize } = require("./db/models/index");
-// const { devSyncAndSeed } = require("./db/utilities/syncAndSeed");
 // const synchronize = require('./models/modelIndex');
-const { up, down } = require("./db/seeders/simple-db-seed");
+
 
 // if (process.env.NODE_ENV === 'dev') {
 // 	const devSyncMode = require("./db/utilities/devSyncMode");
