@@ -10,10 +10,11 @@ const { sequelize } = require("./db/models/index");
 // const synchronize = require('./models/modelIndex');
 const { up, down } = require("./db/seeders/simple-db-seed");
 
-if (process.env.NODE_ENV === 'dev') {
-	const devSyncMode = require("./db/utilities/devSyncMode");
- 	devSyncMode();
-}	
+// if (process.env.NODE_ENV === 'dev') {
+// 	const devSyncMode = require("./db/utilities/devSyncMode");
+//  	devSyncMode();
+// }	
+
 // Routes
 const indexRouter = require("./api/routes/index");
 const usersRouter = require("./api/routes/users");
