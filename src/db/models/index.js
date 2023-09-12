@@ -6,9 +6,9 @@ const env = process.env.NODE_ENV || "dev";
 const config = require("../config/config")[env];
 
 const logging =
-	process.env.NODE_ENV === "dev"
-		? /*(...msg) => console.log(msg) */ console.log
-		: false;
+	process.env.NODE_ENV === "text"
+		? false
+		: /*(...msg) => console.log(msg) */ console.log;
 
 /** @type {import('sequelize').Sequelize} */
 const sequelize = new Sequelize(
