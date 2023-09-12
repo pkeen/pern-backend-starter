@@ -17,26 +17,11 @@ const usersRouter = require("./api/routes/users");
 const coursesRouter = require("./api/routes/courses");
 
 // devSyncAndSeed(sequelize, up);
-devSyncMode();
 
-// sequelize
-// 	.authenticate()
-// 	.then(() => {
-// 		console.log("Database connection established successfully.");
-// 		sequelize.sync({ force: true })
-//       .catch((err) => {
-// 			console.error("Failed to start the app:", err);
-// 		});
-// 	})
-// 	.catch((err) => {
-// 		console.error("Unable to connect to the database:", err);
-// 	});
+if (process.env.NODE_ENV === 'dev') {
+ 	devSyncMode();
+}	
 
-// (async () => {
-//   await up();
-// })()
-
-// synchronize();
 
 const app = express();
 

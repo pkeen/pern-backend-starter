@@ -23,7 +23,9 @@ module.exports = {
 		// migrationStoragePath: "src/db/migrations",
 		// seederStoragePath: "src/db/seeders",
 	},
-	production: {
+	production_test: {
+		// this should be almost a clone of production
+		// real production variable DATABASE_URL is on heroku
 		username: process.env.DB_USERNAME,
 		password: process.env.DB_PASSWORD,
 		database: process.env.DB_NAME,

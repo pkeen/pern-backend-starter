@@ -5,7 +5,7 @@ const env = process.env.NODE_ENV || "dev";
 const config = require("../config/config")[env];
 
 /**
- * Connect database using local config vars or connection string if Heroku
+ * Connect database using local config vars or connection string if on Heroku
  */
 
 const sequelizeConnection = () => {
