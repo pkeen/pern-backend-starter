@@ -75,6 +75,11 @@ module.exports = (sequelize, DataTypes) => {
 			foreignKey: "userId",
 			onDelete: "CASCADE",
 		});
+
+		User.hasMany(models.Order, {
+			foreignKey: "userId",
+			// leave on delete because we want to keep order records always
+		});
 	};
 
 	User.beforeSave(async (user, options) => {

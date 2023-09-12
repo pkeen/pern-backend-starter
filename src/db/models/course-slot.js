@@ -29,9 +29,7 @@ module.exports = (sequelize, DataTypes) => {
 			// onUpdate: "CASCADE",
 			onDelete: "CASCADE",
 		});
-
 	};
-
 
 	return CourseSlot;
 };

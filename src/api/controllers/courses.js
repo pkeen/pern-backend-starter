@@ -1,4 +1,11 @@
-const { User, Course, CourseSlot, Module, Lesson } = require("../../db/models/index");
+const {
+	User,
+	Course,
+	CourseSlot,
+	Module,
+	Lesson,
+	ModuleSlot,
+} = require("../../db/models/index");
 const handleError = require("../utils/handleError");
 const FriendlyError = require("../utils/friendlyError");
 const {
@@ -119,12 +126,24 @@ const getOne = async (req, res) => {
 					include: [
 						{
 							model: Module,
-							attributes: ["id", "title", "isPublished"]
+							attributes: ["id", "title", "isPublished"],
+							include: [
+								{
+									model: ModuleSlot,
+									attributes: ["id", "order"],
+									include: [
+										{
+											model: Lesson,
+											attributes: ["id", "title"],
+										},
+									],
+								},
+							],
 						},
 						{
 							model: Lesson,
-							attributes: ["id", "title", "isPublished"]
-						}
+							attributes: ["id", "title", "isPublished"],
+						},
 					],
 				},
 			],

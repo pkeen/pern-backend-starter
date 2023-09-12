@@ -34,10 +34,11 @@ module.exports = (sequelize, DataTypes) => {
 			onDelete: "CASCADE",
 		});
 
-		Course.hasMany(models.ModuleSlot, {
+		Course.hasMany(models.Order, {
 			foreignKey: "courseId",
-			onDelete: "CASCADE",
 		});
+
+		
 	};
 
 	return Course;

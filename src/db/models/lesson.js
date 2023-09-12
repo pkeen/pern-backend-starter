@@ -24,6 +24,11 @@ module.exports = (sequelize, DataTypes) => {
 			onDelete: "CASCADE",
 		});
 
+		Lesson.hasMany(models.ModuleSlot, {
+			foreignKey: "lessonId",
+			onDelete: "CASCADE",
+		});
+
 		Lesson.belongsTo(models.User, {
 			foreignKey: "userId",
 			onDelete: "CASCADE",
