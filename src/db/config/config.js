@@ -42,6 +42,17 @@ module.exports = {
 		// migrationStoragePath: "src/db/migrations",
 		// seederStoragePath: "src/db/seeders",
 	},
+	production: {
+		use_env_variable: "DATABASE_URL",
+		dialect: "postgres",
+		dialectOptions: {
+			ssl: {
+				require: true,
+				rejectUnauthorized: false,
+			},
+		},
+		// other configurations...
+	},
 
 	// other configurations
 	// migrationStoragePath: 'src/db/migrations',
