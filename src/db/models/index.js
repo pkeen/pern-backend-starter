@@ -29,6 +29,7 @@ const models = {
 	CourseSlot: require("./course-slot")(sequelize, Sequelize.DataTypes),
 	Module: require("./module")(sequelize, Sequelize.DataTypes),
 	Lesson: require("./lesson")(sequelize, Sequelize.DataTypes),
+	ModuleSlot: require("/module-slot")(sequelize, Sequelize.DataTypes),
 	// Course: require("./models/Course")(sequelize, Sequelize.DataTypes),
 	// add more models here
 };

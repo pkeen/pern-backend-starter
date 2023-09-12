@@ -17,4 +17,6 @@ router.delete("/:id", ensureLoggedIn, coursesCtrl.destroy);
 // PUT /api/courses/:id
 router.put('/:id', coursesCtrl.update);
 
+router.get("/:id", coursesCtrl.getOne);
+
 module.exports = router;

@@ -1,7 +1,11 @@
-const { User, Course } = require("../../db/models/index");
+const { User, Course, CourseSlot, Module, Lesson } = require("../../db/models/index");
 const handleError = require("../utils/handleError");
 const FriendlyError = require("../utils/friendlyError");
-const { getObjectOr404, userIsOwnerOr403 , validateAndFormatParams} = require('../utils/request-database-utilities');
+const {
+	getObjectOr404,
+	userIsOwnerOr403,
+	validateAndFormatParams,
+} = require("../utils/request-database-utilities");
 // const validateAndFormatParams = require("../utils/validateAndFormatParams");
 
 const index = async (req, res) => {
@@ -46,7 +50,6 @@ const destroy = async (req, res) => {
 		await course.destroy();
 
 		res.status(200).json({ message: "Course deleted successfully" });
-
 	} catch (err) {
 		if (err instanceof FriendlyError) {
 			res.status(err.status).json(err.formatError());
@@ -75,9 +78,60 @@ const update = async (req, res) => {
 
 		await course.update(req.body);
 
-		res.status(200).json({message: "Course updated successfully", course})
-
+		res.status(200).json({
+			message: "Course updated successfully",
+			course,
+		});
 	} catch (error) {
+		if (err instanceof FriendlyError) {
+			res.status(err.status).json(err.formatError());
+		} else {
+			console.error(err); // log the error for debugging purposes
+			res.status(500).json({
+				error: {
+					code: "unknown_error",
+					message: "An unexpected error occurred",
+				},
+			});
+		}
+	}
+};
+
+const getOne = async (req, res) => {
+	try {
+		const id = req.params.id;
+
+		// const course = await getObjectOr404(id, Course);
+
+		const course = await Course.findOne({
+			where: { id: id }, // assuming the foreign key on the Course model is userId
+			// attributes: ["id", "title"], // ... other course fields
+			include: [
+				{
+					model: User,
+					// as: "User", // using "as" to alias the association, ensuring the key in the returned object is "User"
+					attributes: ["id", "name"], // ... other user fields
+				},
+				{
+					model: CourseSlot,
+					// as: "CourseSlots", // using "as" to alias the association, ensuring the key in the returned object is "CourseSlots"
+					attributes: ["id", "order"], // ... other course slot fields
+					include: [
+						{
+							model: Module,
+							attributes: ["id", "title", "isPublished"]
+						},
+						{
+							model: Lesson,
+							attributes: ["id", "title", "isPublished"]
+						}
+					],
+				},
+			],
+		});
+
+		res.status(200).json(course);
+	} catch (err) {
 		if (err instanceof FriendlyError) {
 			res.status(err.status).json(err.formatError());
 		} else {
@@ -97,4 +151,5 @@ module.exports = {
 	create,
 	destroy,
 	update,
+	getOne,
 };

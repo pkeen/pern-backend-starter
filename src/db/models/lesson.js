@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
 		text: {
 			type: DataTypes.TEXT,
 		},
-		video_link: {
+		videoLink: {
 			type: DataTypes.STRING,
 		},
 		isPublished: {

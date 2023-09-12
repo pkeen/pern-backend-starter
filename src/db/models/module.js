@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
 			allowNull: false,
 			// unique: true,
 		},
-		description: {
+		text: {
 			type: DataTypes.TEXT,
 		},
 		isPublished: {
@@ -15,6 +15,14 @@ module.exports = (sequelize, DataTypes) => {
 
 	Module.associate = (models) => {
 		Module.hasMany(models.CourseSlot, {
+			foreignKey: "moduleId",
+			// onUpdate: "CASCADE",
+			onDelete: "CASCADE",
+		});
+	};
+
+	Module.associate = (models) => {
+		Module.hasMany(models.ModuleSlot, {
 			foreignKey: "moduleId",
 			// onUpdate: "CASCADE",
 			onDelete: "CASCADE",
