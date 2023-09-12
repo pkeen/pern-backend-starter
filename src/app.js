@@ -8,11 +8,10 @@ const checkJWT = require("./api/middleware/checkJWT");
 const { sequelize } = require("./db/models/index");
 // const synchronize = require('./models/modelIndex');
 
-
 // if (process.env.NODE_ENV === 'dev') {
 // 	const devSyncMode = require("./db/utilities/devSyncMode");
 //  	devSyncMode();
-// }	
+// }
 
 // Routes
 const indexRouter = require("./api/routes/index");
@@ -20,8 +19,6 @@ const usersRouter = require("./api/routes/users");
 const coursesRouter = require("./api/routes/courses");
 
 // devSyncAndSeed(sequelize, up);
-
-
 
 const app = express();
 
@@ -34,13 +31,30 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
 // configure CORS
-app.use(
-	cors({
-		origin: "http://localhost:5173", // your frontend server's address
-		// origin: false // should disable
-	})
-);
+const whitelist = [
+	"http://localhost:5173",
+	"https://zenora-frontend.vercel.app/",
+];
+// will only allow the two whitelisted sites
+var corsOptions = {
+	origin: function (origin, callback) {
+		if (whitelist.indexOf(origin) !== -1) {
+			callback(null, true);
+		} else {
+			callback(new Error("Not allowed by CORS"));
+		}
+	},
+};
+
+app.use(cors(corsOptions));
+// app.use(
+// 	cors({
+// 		origin: "http://localhost:5173", // your frontend server's address
+// 		// origin: false // should disable
+// 	})
+// );
 // Middleware to check and verify a JWT
 // and assign the user object from the JWT to req.user
 app.use(checkJWT);
