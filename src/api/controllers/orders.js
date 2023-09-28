@@ -1,4 +1,5 @@
 const { Order, Course, User } = require("../../db/models/index");
+const FriendlyError = require("../utils/friendlyError");
 const handleError = require("../utils/handleError");
 
 const getCoursesPurchasedByUser = async (req, res) => {
@@ -71,11 +72,16 @@ const getUserOrders = async (req, res) => {
 const create = async (req, res) => {
 	try {
         console.log(req.body);
-		// const data = { ...req.body, userId: parseInt(req.user.id) };
-		// const order = await Order.create(data);
-		// res.status(201).json(order);
+		// res.json(req.body);
+		if (!req.user) {
+			throw new FriendlyError('No user found in request', 404, 'no_user');
+		}
+		const data = { ...req.body, userId: parseInt(req.user.id) };
+		// console.log(data);
+		const order = await Order.create(data);
+		res.status(201).json(order);
 	} catch (err) {
-		console.log("sequelize error: ", err);
+		// console.log("sequelize error: ", err);
 		const error = handleError(err);
 		console.log(error);
 		res.status(error.status).json(error.formatError());

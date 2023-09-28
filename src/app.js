@@ -64,7 +64,6 @@ app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/courses", coursesRouter);
 app.use('/api/orders', ordersRouter);
-// app.use('/', authRouter);
 
 // catch 404 and forward to error handler
 // app.use(function (req, res, next) {

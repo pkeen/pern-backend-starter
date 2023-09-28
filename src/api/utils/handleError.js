@@ -24,10 +24,12 @@ const formatValidationError = (err) => {
 };
 
 const handleError = (err) => {
+
+	if (err instanceof FriendlyError) return err;
 	// return FriendlyError for known occurances
 	switch (err.name) {
-		case "FriendlyError":
-			return err;
+		// case "FriendlyError":
+		// 	return err;
 
 		case "SequelizeForeignKeyConstraintError":
 			return new FriendlyError(
