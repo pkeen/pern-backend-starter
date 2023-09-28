@@ -17,6 +17,7 @@ const { sequelize } = require("./db/models/index");
 const indexRouter = require("./api/routes/index");
 const usersRouter = require("./api/routes/users");
 const coursesRouter = require("./api/routes/courses");
+const ordersRouter = require("./api/routes/orders");
 
 // devSyncAndSeed(sequelize, up);
 
@@ -62,6 +63,7 @@ app.use(checkJWT);
 app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/courses", coursesRouter);
+app.use('/api/orders', ordersRouter);
 // app.use('/', authRouter);
 
 // catch 404 and forward to error handler
