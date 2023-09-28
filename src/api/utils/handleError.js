@@ -1,11 +1,4 @@
 const FriendlyError = require("./friendlyError");
-// const formatError = (message, statusCode) => {
-// 	return {
-// 		error: {
-// 			message: message,
-// 		},
-// 	};
-// };
 
 const formatValidationError = (err) => {
 	switch (err.validatorKey) {
@@ -25,6 +18,10 @@ const formatValidationError = (err) => {
 
 const handleError = (err) => {
 
+	// log error
+	console.log(err)
+
+	// just return the error if FriendlyError
 	if (err instanceof FriendlyError) return err;
 	// return FriendlyError for known occurances
 	switch (err.name) {

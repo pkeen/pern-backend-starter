@@ -13,11 +13,12 @@ const { sequelize } = require("./db/models/index");
 //  	devSyncMode();
 // }
 
-// Routes
+// Routers
 const indexRouter = require("./api/routes/index");
 const usersRouter = require("./api/routes/users");
 const coursesRouter = require("./api/routes/courses");
 const ordersRouter = require("./api/routes/orders");
+const lessonsRouter = require("./api/routes/lessons")
 
 // devSyncAndSeed(sequelize, up);
 
@@ -64,6 +65,7 @@ app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/courses", coursesRouter);
 app.use('/api/orders', ordersRouter);
+app.use('/api/lessons', lessonsRouter);
 
 // catch 404 and forward to error handler
 // app.use(function (req, res, next) {
