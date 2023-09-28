@@ -21,9 +21,46 @@ const index = async (req, res) => {
 	const query = validateAndFormatParams(Course, params);
 	// console.log(query);
 	try {
+		// const courses = await Course.findAll({
+		// 	where: query,
+		// 	include: { model: User, attributes: ["name"] },
+		// });
 		const courses = await Course.findAll({
 			where: query,
-			include: { model: User, attributes: ["name"] },
+			include: [
+				{
+					model: User,
+					// as: "User", // using "as" to alias the association, ensuring the key in the returned object is "User"
+					attributes: ["id", "name"], // ... other user fields
+				},
+				{
+					model: CourseSlot,
+					// as: "CourseSlots", // using "as" to alias the association, ensuring the key in the returned object is "CourseSlots"
+					attributes: ["id", "order"], // ... other course slot fields
+					include: [
+						{
+							model: Module,
+							attributes: ["id", "title", "isPublished"],
+							include: [
+								{
+									model: ModuleSlot,
+									attributes: ["id", "order"],
+									include: [
+										{
+											model: Lesson,
+											attributes: ["id", "title"],
+										},
+									],
+								},
+							],
+						},
+						{
+							model: Lesson,
+							attributes: ["id", "title", "isPublished"],
+						},
+					],
+				},
+			],
 		});
 		res.status(200).json(courses);
 	} catch (err) {
