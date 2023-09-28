@@ -18,7 +18,8 @@ const indexRouter = require("./api/routes/index");
 const usersRouter = require("./api/routes/users");
 const coursesRouter = require("./api/routes/courses");
 const ordersRouter = require("./api/routes/orders");
-const lessonsRouter = require("./api/routes/lessons")
+const lessonsRouter = require("./api/routes/lessons");
+const modulesRouter = require("./api/routes/modules");
 
 // devSyncAndSeed(sequelize, up);
 
@@ -61,11 +62,13 @@ app.use(cors());
 // and assign the user object from the JWT to req.user
 app.use(checkJWT);
 
+// Use Routers
 app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/courses", coursesRouter);
-app.use('/api/orders', ordersRouter);
-app.use('/api/lessons', lessonsRouter);
+app.use("/api/orders", ordersRouter);
+app.use("/api/lessons", lessonsRouter);
+app.use("/api/modules", modulesRouter);
 
 // catch 404 and forward to error handler
 // app.use(function (req, res, next) {
