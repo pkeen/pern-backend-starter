@@ -1,0 +1,1 @@
+This repo will soon be replaced by a newer one using serverless framework. Stay tuned!

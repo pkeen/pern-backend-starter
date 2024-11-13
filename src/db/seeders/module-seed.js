@@ -7,7 +7,7 @@ module.exports = {
 
 
 		for (let i = 0; i < 40; i++) {
-			// create 50 lessons assigned to random user
+			// create 50 modules assigned to random user
 			await queryInterface.bulkInsert("Modules", [
 				{
 					title: faker.company.buzzPhrase(),
